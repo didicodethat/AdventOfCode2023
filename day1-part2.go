@@ -37,7 +37,7 @@ func main() {
 	for fileScanner.Scan() {
 		line := fileScanner.Text()
 		const unitializedValue = -1
-		number := []int64{unitializedValue, unitializedValue}
+		number := []int{0, 0}
 		var hits []int
 		for i := 0; i < len(line); i++ {
 			currentSubstring := line[i:]
@@ -47,12 +47,8 @@ func main() {
 				}
 			}
 		}
-		for _, hit := range hits {
-			if number[0] == unitializedValue {
-				number[0] = int64(hit)
-			}
-			number[1] = int64(hit)
-		}
+		number[0] = hits[0]
+		number[1] = hits[len(hits)-1]
 		finalSum += uint64(number[0]*10 + number[1])
 	}
 	fmt.Println(finalSum)
